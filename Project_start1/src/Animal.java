@@ -4,7 +4,7 @@ enum TypeAnimal {Predator, Herbivore}
 public class Animal {
     protected String name, classAnimal, voice;
     //protected TypeAnimal type;
-    TypeAnimal Type;
+    public TypeAnimal Type;
     Animal(String name1, String classAnimal1, TypeAnimal type1, String voice1){
         name = name1;
         classAnimal = classAnimal1;
@@ -37,11 +37,9 @@ public class Animal {
     public void PrintTypeAnimal(){
         System.out.println("\nType: " + Type);
     }
-
     public void PrintVoice(){
-        System.out.println("\nVoce: " + voice);
+        System.out.print(" " + voice);
     }
-
     public void PrintAll(){
         System.out.println("\n\tAnimal " + name);
         System.out.println("Name: " + name);
