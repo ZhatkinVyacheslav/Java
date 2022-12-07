@@ -1,97 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
 public class ZOO {
 
-    protected ZooCage[] CagesZoo;
-    protected int size;
-    protected boolean[] FullnessCage;
-    public ZOO(int size1)
-    {
-        size = size1;
-        CagesZoo = new ZooCage[size];
-        FullnessCage = new boolean[size];
-        for (int i = 0; i < size; i++)
-        {
-            FullnessCage[i] = false;
-        }
+    protected List<ZooCage> CagesZoo = new ArrayList<ZooCage>();
+    //protected int size;
+    //protected boolean[] FullnessCage;
+    public ZOO() {
     }
-    public ZOO(int size1, ZooCage CagesZoo1[])
-    {
-        for (int j = 0; j < size; j++)
-        {
-            FullnessCage[j] = false;
-        }
-        int i = 0;
-        while (CagesZoo1[i] != null)
-        {
-            FullnessCage[i] = true;
-            i++;
-        }
-        if (i > size1) {
-            System.out.println("ERROR, Size not correct!!!");
-        }
-        else {
-            size = size1;
-            CagesZoo = new ZooCage[size];
-            CagesZoo = CagesZoo1;
-        }
-    }
+
     public void BuyCage()
     {
-        ZooCage[] HelpMass = new ZooCage[size];
-        HelpMass = CagesZoo;
-        boolean[] helpBool =  new boolean[size];
-        helpBool = FullnessCage;
-        FullnessCage = null;
-        CagesZoo = null;
-        size++;
-        CagesZoo = new ZooCage[size];
-        FullnessCage = new boolean[size];
-        for (int i = 0; i < size - 1; i++)
-        {
-            CagesZoo[i] = HelpMass[i];
-            FullnessCage[i] = helpBool[i];
-        }
-        FullnessCage[size - 1] = false;
+        ZooCage newCage = new ZooCage();
+        CagesZoo.add(newCage);
     }
-    public void PushCage(ZooCage CagesZoo1, int pos)
+    public void PushCage(ZooCage newCage, int pos)
     {
-        if ((pos < 0) || (pos > size - 1 ))
-        {
-            System.out.println("ERROR!!! not correct position!");
-        }
-        else {
-            if (FullnessCage[pos] == false) {
-                CagesZoo[pos] = CagesZoo1;
-                FullnessCage[pos] = true;
-            }
-            else System.out.println("ERROR!!! this cage is full");
-        }
+        CagesZoo.add(newCage);
     }
-    public void PushAnimalInCage(Animal NewAnimal, int posCage, int posAnimal){
-        if ((posCage < 0) || (posCage > size - 1 )){
-            System.out.println("ERROR!!! not correct position cage!");
+    public void PushAnimalInCage(Animal NewAnimal, int posCage, int posAnimal)throws Exception {
+        if ((posCage < 0) || (posCage > CagesZoo.size() - 1 )){
+            throw new Exception("ERROR!!! not correct position!");
         } else if((posAnimal < 0) || (posAnimal > 3)) {
-            System.out.println("ERROR!!! not correct position Animal!");
+            throw new Exception("ERROR!!! not correct position!");
         } else {
-            CagesZoo[posCage].Push(NewAnimal, posAnimal);
+            ZooCage newCage = new ZooCage();
+            newCage = CagesZoo.get(posCage);
+            newCage.Push(NewAnimal, posAnimal);
+            CagesZoo.set(posCage, newCage);
         }
     }
-    public void PopCage(int pos){
-        if ((pos < 0) || (pos > size - 1 ))
+    public void PopCage(int pos) throws Exception{
+        if ((pos < 0) || (pos > CagesZoo.size() - 1 ))
         {
-            System.out.println("ERROR!!! not correct position!");
-        } else CagesZoo[pos] = null;
+            throw new Exception("ERROR!!! not correct position!");
+        } else {
+            if (CagesZoo.isEmpty()) {
+                throw new Exception("ERROR!!! Empty!");
+            } else {
+                CagesZoo.remove(pos);
+            }
+        }
     }
 
     public void WalkInZoo(){
         System.out.println("\n\n\tAre you walking around the zoo");
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < CagesZoo.size(); i++)
         {
             System.out.println("\n\nYou walk near the cage " + i);
-            if (CagesZoo[i] == null)
+            if (CagesZoo.get(i) == null)
             {
                 System.out.println("Cage " + i + " is empty");
             }
-            else  { CagesZoo[i].Walk(); }
+            else  { CagesZoo.get(i).Walk(); }
         }
         System.out.println("\n\nWalking is end!");
     }

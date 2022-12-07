@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class Main {
         cageHamster.Push(HamsterRadj, 3);
 
 
-        ZOO Limpopo = new ZOO(2);
+        ZOO Limpopo = new ZOO();
         Limpopo.PushCage(cageCat, 0);
         Limpopo.PushCage(cageDog, 1);
 
@@ -48,5 +50,6 @@ public class Main {
         Limpopo.PushCage(cageHamster, 2);
 
         Limpopo.WalkInZoo();
+
     }
 }
